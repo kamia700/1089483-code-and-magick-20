@@ -33,25 +33,35 @@ var renderHeader = function (ctx) {
   ctx.fillText('Список результатов:', CLOUD_X + BAR_GAP, CLOUD_Y + GAP * 2 + TEXT_HEIGHT);
 };
 
+var renderName = function (ctx, players, i) {
+  ctx.fillStyle = '#000';
+  ctx.fillText(players[i], CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i, CLOUD_HEIGHT + CLOUD_Y - GAP * 2);
+};
+
+var renderBar = function (ctx, players, i, times) {
+  var maxTime = getMaxElement(times);
+  var barHeight = BAR_HEIGHT * times[i] / maxTime;
+  var time = Math.round(times[i]);
+  ctx.fillText(time, CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i, CLOUD_HEIGHT + CLOUD_Y - GAP * 2 - barHeight - TEXT_HEIGHT * 2);
+
+  var barRendomBlue = 'hsl(240, ' + Math.round(Math.random() * 100) + '%, 50%)';
+  var barColor = players[i] === 'Вы' ? YOUR_COLOR : barRendomBlue;
+  ctx.fillStyle = barColor;
+  ctx.fillRect(CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i, CLOUD_HEIGHT + CLOUD_Y - TEXT_HEIGHT * 2, BAR_WIDTH, -barHeight);
+};
+
+var renderBars = function (ctx, players, times) {
+  for (var i = 0; i < players.length; i++) {
+    renderName(ctx, players, i);
+
+    renderBar(ctx, players, i, times);
+  }
+};
+
 window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
   renderHeader(ctx);
-
-  var maxTime = getMaxElement(times);
-
-  for (var i = 0; i < players.length; i++) {
-    ctx.fillStyle = '#000';
-    ctx.fillText(players[i], CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i, CLOUD_HEIGHT + CLOUD_Y - GAP * 2);
-
-    var barHeight = BAR_HEIGHT * times[i] / maxTime;
-    var time = Math.round(times[i]);
-    ctx.fillText(time, CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i, CLOUD_HEIGHT + CLOUD_Y - GAP * 2 - barHeight - TEXT_HEIGHT * 2);
-
-    var barRendomBlue = 'hsl(240, ' + Math.round(Math.random() * 100) + '%, 50%)';
-    var barColor = players[i] === 'Вы' ? YOUR_COLOR : barRendomBlue;
-    ctx.fillStyle = barColor;
-    ctx.fillRect(CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i, CLOUD_HEIGHT + CLOUD_Y - TEXT_HEIGHT * 2, BAR_WIDTH, -barHeight);
-  }
+  renderBars(ctx, players, times);
 };
