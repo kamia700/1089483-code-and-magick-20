@@ -14,7 +14,7 @@
   var createWizard = function () {
     var wizard = {};
     wizard.name = getName(WIZARD_NAMES, WIZARD_LAST_NAMES);
-    wizard.coatColor = window.colorize.getRandomCoat();
+    wizard.colorCoat = window.colorize.getRandomCoat();
     wizard.eyesColor = window.colorize.getRandomEyes();
     return wizard;
   };
@@ -30,5 +30,6 @@
 
   window.wizards = {
     getWizards: getWizards,
+    WIZARDS_NUMBER: WIZARDS_NUMBER,
   };
 })();

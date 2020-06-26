@@ -47,4 +47,9 @@
   setupClose.addEventListener('keydown', function (evt) {
     window.util.isEnterEvent(evt, closePopup);
   });
+
+  window.dialog = {
+    closePopup: closePopup,
+    openPopup: openPopup,
+  };
 })();
