@@ -15,7 +15,7 @@
     var wizard = {};
     wizard.name = getName(WIZARD_NAMES, WIZARD_LAST_NAMES);
     wizard.colorCoat = window.colorize.getRandomCoat();
-    wizard.eyesColor = window.colorize.getRandomEyes();
+    wizard.colorEyes = window.colorize.getRandomEyes();
     return wizard;
   };
   createWizard();
