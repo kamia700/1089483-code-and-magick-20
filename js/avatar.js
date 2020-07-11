@@ -4,6 +4,7 @@
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
   var fileChooser = document.querySelector('.upload input[type=file]');
+
   var preview = document.querySelector('.setup-user-pic');
 
   fileChooser.addEventListener('change', function () {
@@ -15,13 +16,13 @@
     });
 
     if (matches) {
-      var reader = new FileReader();
 
+      var reader = new FileReader();
       reader.addEventListener('load', function () {
         preview.src = reader.result;
       });
-
       reader.readAsDataURL(file);
     }
+
   });
 })();
